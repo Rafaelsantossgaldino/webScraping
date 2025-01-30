@@ -9,7 +9,7 @@
     "dev": "nodemon",
     "build": "tsc",
     "start": "node build/server.ts",
-    "postinstall": "npx puppeteer browsers install chrome"
+    "postinstall": "echo 'Skipping Chrome installation for Render'"
   },
   "keywords": [],
   "author": "",

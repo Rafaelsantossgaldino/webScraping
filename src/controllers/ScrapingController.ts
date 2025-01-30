@@ -20,7 +20,8 @@ export const searcProducts = async (req: Request, res: Response): Promise<void> 
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox'
-      ]
+      ],
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH 
     });
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'networkidle2' });
