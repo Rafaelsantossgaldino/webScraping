@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: scraping-service
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: PUPPETEER_EXECUTABLE_PATH
+        value: /usr/bin/google-chrome-stable
+    plan: free
+    branch: main
+    autoDeploy: true
+    healthCheckPath: /health
+
+  - type: cron
+    name: scraping-cron-job
+    env: node
+    schedule: "0 0 * * *"  # Executa uma vez por dia
+    startCommand: npm run scrape-products

@@ -21,7 +21,7 @@ export const searcProducts = async (req: Request, res: Response): Promise<void> 
         '--no-sandbox',
         '--disable-setuid-sandbox'
       ],
-      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH 
+       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/google-chrome-stable'
     });
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'networkidle2' });
