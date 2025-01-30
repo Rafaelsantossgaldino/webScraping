@@ -14,7 +14,18 @@ export const searcProducts = async (req: Request, res: Response): Promise<void> 
   const url = `https://www.buscape.com.br/search?q=${encodeURIComponent(produto as string)}`;
 
   try {
-    const browser = await puppeteer.launch({ headless: false }); 
+    // const browser = await puppeteer.launch({ headless: false }); 
+    const browser = await puppeteer.launch({
+      executablePath: process.env.CHROME_PATH || '/opt/render/.cache/puppeteer/chrome/linux-132.0.6834.110/chrome',
+      headless: true,
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage",
+        "--disable-gpu",
+        "--disable-software-rasterizer"
+      ]
+    });
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'networkidle2' });
 
