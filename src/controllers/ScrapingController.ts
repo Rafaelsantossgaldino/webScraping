@@ -16,14 +16,10 @@ export const searcProducts = async (req: Request, res: Response): Promise<void> 
   try {
     // const browser = await puppeteer.launch({ headless: false }); 
     const browser = await puppeteer.launch({
-      executablePath: process.env.CHROME_PATH || '/opt/render/.cache/puppeteer/chrome/linux-132.0.6834.110/chrome',
-      headless: true,
+      headless: true, // Use 'true' para rodar o Chrome de forma oculta
       args: [
-        "--no-sandbox",
-        "--disable-setuid-sandbox",
-        "--disable-dev-shm-usage",
-        "--disable-gpu",
-        "--disable-software-rasterizer"
+        '--no-sandbox',
+        '--disable-setuid-sandbox'
       ]
     });
     const page = await browser.newPage();
