@@ -2,7 +2,12 @@ services:
   - type: web
     name: scraping-service
     env: node
-    buildCommand: npm install && npm run build
+    buildCommand: |
+      apt-get update && apt-get install -y wget && \
+      wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+      echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | tee /etc/apt/sources.list.d/google-chrome.list && \
+      apt-get update && apt-get install -y google-chrome-stable
+      npm install && npm run build
     startCommand: npm run start
     envVars:
       - key: PUPPETEER_EXECUTABLE_PATH
@@ -11,9 +16,3 @@ services:
     branch: main
     autoDeploy: true
     healthCheckPath: /health
-
-  - type: cron
-    name: scraping-cron-job
-    env: node
-    schedule: "0 0 * * *"  # Executa uma vez por dia
-    startCommand: npm run scrape-products
